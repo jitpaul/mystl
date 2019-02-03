@@ -15,7 +15,11 @@ namespace mystd{
         public:
 
             myvector();
+            
+            myvector(const myvector<T> &);
 
+            void operator=(const myvector<T>&);
+            
             ~myvector();
 
             void push_back(T);
@@ -26,7 +30,7 @@ namespace mystd{
 
             T back();
 
-            size_t size();
+            size_t size() const ;
 
             size_t capacity();
 

@@ -10,6 +10,25 @@ namespace mystd{
     }
 
     template <class T>
+    myvector<T>::myvector(const myvector<T>& other){
+        s=0;
+        c=0;
+        reserve(other.size());
+        for(size_t i=0;i<other.size();i++){
+            push_back(other.array[i]);
+        }
+    }
+
+    template <class T>
+    void myvector<T>::operator=(const myvector<T>& other){
+        reserve(other.size());
+        for(int i=0;i<other.size();i++){
+            push_back(other.array[i]);
+        }
+    }
+
+
+    template <class T>
     myvector<T>::~myvector(){
         if(s > 0){
             delete [] array;
@@ -17,7 +36,7 @@ namespace mystd{
     }
 
     template <class T>
-    size_t myvector<T>::size(){
+    size_t myvector<T>::size() const {
         return s;
     }
     
@@ -29,7 +48,7 @@ namespace mystd{
     template <class T>
     void myvector<T>::push_back(T val){
         if(s==c){
-            resize((size_t)2*s);
+            reserve((size_t)2*(c+1));
         }
         array[s++] = val;
     }
@@ -44,18 +63,18 @@ namespace mystd{
 
     template <class T>
     void myvector<T>::resize(size_t newSize){
-        if(newSize > c){
-            reserve(c*2);
-        }
-        else if (newSize > s){
-            T val;
-            while(s<newSize){
-                array.push_back(val);
+        if(newSize < s){
+            while(s>newSize){
+                pop_back();
             }
         }
         else{
-             while(s>newSize){
-                array.pop_back(val);
+            if(newSize > c){
+                reserve((c+1)*2);
+            }
+            T val;
+            while(s<newSize){
+                push_back(val);
             }
         }
     }
@@ -71,7 +90,8 @@ namespace mystd{
             array[i] = old[i];
         }
         c = newCapacity;
-        delete[] old;
+        if(s > 0)
+            delete[] old;
     }
 
     template <class T>
