@@ -10,6 +10,23 @@ namespace mystd{
     }
 
     template <class T>
+    myvector<T>::myvector(size_t newSize, T def){
+       s=0;
+       c=0;
+       resize(newSize, def);
+    }
+
+    template <class T>
+    myvector<T>::myvector(std::initializer_list<T> iList){
+        s=0;
+        c=0;
+        reserve(iList.size());
+        for(auto it=iList.begin();it!=iList.end();++it){
+            push_back(*it);
+        }
+    }
+    
+    template <class T>
     myvector<T>::myvector(const myvector<T>& other){
         s=0;
         c=0;
@@ -25,6 +42,12 @@ namespace mystd{
         for(int i=0;i<other.size();i++){
             push_back(other.array[i]);
         }
+    }
+
+
+    template <class T>
+    T& myvector<T>::operator[](const int& index){
+        return array[index];
     }
 
 
@@ -62,7 +85,7 @@ namespace mystd{
     }
 
     template <class T>
-    void myvector<T>::resize(size_t newSize){
+    void myvector<T>::resize(size_t newSize, T def){
         if(newSize < s){
             while(s>newSize){
                 pop_back();
@@ -72,9 +95,8 @@ namespace mystd{
             if(newSize > c){
                 reserve((c+1)*2);
             }
-            T val;
             while(s<newSize){
-                push_back(val);
+                push_back(def);
             }
         }
     }

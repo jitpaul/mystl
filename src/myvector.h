@@ -2,6 +2,7 @@
 #define INCLUDED_MYVECTOR_H
 
 #include <cstddef>
+#include <initializer_list>
 
 namespace mystd{
 
@@ -16,10 +17,16 @@ namespace mystd{
 
             myvector();
             
+            myvector(size_t s, T def = T() );
+            
+            myvector(std::initializer_list<T>);
+
             myvector(const myvector<T> &);
 
             void operator=(const myvector<T>&);
             
+            T& operator[](const int& index);
+
             ~myvector();
 
             void push_back(T);
@@ -34,7 +41,7 @@ namespace mystd{
 
             size_t capacity();
 
-            void resize(size_t);
+            void resize(size_t, T def = T());
 
             void reserve(size_t);
              
