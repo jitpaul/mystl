@@ -1,5 +1,6 @@
-#ifndef INCLUDED_VECTOR_H
+#ifndef INCLUDED_MYVECTOR_H
 #define INCLUDED_MYVECTOR_H
+#endif
 
 #include <cstddef>
 #include <initializer_list>
@@ -48,6 +49,4 @@ namespace mystd{
     }; 
     template class myvector<int>;
 };
-
-#endif
 
